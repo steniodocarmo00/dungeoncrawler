@@ -1,0 +1,210 @@
+@font-face {
+  font-family: "MS-DOS";
+  src: url("fonts/PerfectDOSVGA437Win.ttf");
+}
+
+body {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "MS-DOS";
+}
+
+#game-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#start-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#start-screen h1 {
+  margin-top: 200px;
+  color: #51b3ff;
+}
+
+#background-menu {
+  width: 1100px;
+}
+
+#menu-screen {
+  display: none;
+}
+
+#menu-screen-prompt {
+  display: flex;
+  margin-top: 250px;
+  color: #a9a9a9;
+  font-size: 30px;
+}
+
+#menu-screen-prompt ul {
+  list-style: none;
+  padding: 0;
+}
+
+#menu-screen-prompt li {
+  margin-bottom: 10px;
+}
+
+#menu-screen-prompt li[selected] {
+  background-color: #c0c0c0;
+  color: black;
+}
+
+#tutorial-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+#tutorial-screen h1 {
+  color: #51b3ff;
+}
+
+#tutorial-icons {
+  display: flex;
+  color: white;
+  font-size: 27px;
+}
+
+#icons1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 55px;
+}
+
+#icons2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#player-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+
+#key-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+
+#dooropen-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+
+#doorclosed-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+
+#button-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+
+#spike-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+
+#tp-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+
+#tutorial-controls {
+  display: flex;
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+}
+
+#tutorial-screen-prompt {
+  width: 1100px;
+  height: 300px;
+  margin-right: 1px;
+  margin-top: 25px;
+  color: #a9a9a9;
+  font-size: 30px;
+}
+
+#tutorial-screen-prompt ul {
+  list-style: none;
+  padding: 0;
+}
+
+#tutorial-screen-prompt li {
+  margin-bottom: 10px;
+}
+
+#exit-screen {
+  display: none;
+  flex-direction: column;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  margin-top: 450px;
+  font-size: 30px;
+}
+
+#exit-screen-prompt {
+  width: 1100px;
+  height: 300px;
+  margin-top: 140px;
+  color: #a9a9a9;
+  font-size: 30px;
+}
+
+#exit-screen-prompt ul {
+  list-style: none;
+  padding: 0;
+}
+
+#exit-screen-prompt li {
+  margin-bottom: 10px;
+}
+
+#game-levelone {
+  display: none;
+  white-space: pre;
+  margin-top: 200px;
+  font-size: 25px;
+  flex-direction: column;
+  color: white;
+}
