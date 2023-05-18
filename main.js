@@ -103,37 +103,83 @@ function GameLogic() {
   var door;
   var doorX;
   var doorY;
-  var level;
+  var level1;
+  var level2
+  var levelLogic
 
-  level = [
-    "************",
-    "*          *",
-    "*          *",
-    "*          *",
-    "*          *",
-    "*          D",
-    "************",
+  level1 = [
+    "**************",
+    "*     *      *",
+    "*     *      *",
+    "D     *      *",
+    "*     *      *",
+    "*     *      *",
+    "*     *      *",
+    "***  ****  ***",
+    "*     *      *",
+    "*     *      *",
+    "*            *",
+    "*            *",
+    "*     *      *",
+    "*     *      *",
+    "**************",
   ];
+
+  level2 = [
+    "*****************************",
+    "*       *        #          *",
+    "*       *    #       #      *",
+    "*       *    #########      *",
+    "*       *    #       #      *",
+    "*       *        #          *",
+    "*       *********************",
+    "*####   *       #  #        *",
+    "*       *       #           *",
+    "*       *       #     #     *",
+    "*       *             #     *",
+    "*       *          #  #     *",
+    "*       *          #        *",
+    "*       *       #  #        *",
+    "*   ####*       *************",
+    "*                   #       *",
+    "*                   #       *",
+    "*                   #       *",
+    "*                   #       *",
+    "*                   #       *",
+    "*                *  #   #   *",
+    "*                *  #   #   *",
+    "*                *  #   #   *",
+    "*************    *  #   #   *",
+    "*  #     #       *      #   *",
+    "*  #  #  #       *      #   *",
+    "D     #          *      #   *",
+    "*  #  #  #       *      #   *",
+    "*  #     #       *      #   *",
+    "*****************************",
+  ];
+
+  levelLogic = level1
+
   player = "&";
   playerX = 1;
   playerY = 1;
 
   key = "@";
-  keyX = 5;
-  keyY = 2;
+  keyX = 10;
+  keyY = 3;
 
   door = "D";
-  doorX = 11;
-  doorY = 5;
+  doorX = 0;
+  doorY = 3;
   
   doorOpen = false;
-  keyUsed = false;
+  keyUsed = false;  
 
   function LevelMap() {
     var gameLevel = "";
-    for (var y = 0; y < level.length; y++) {
+    for (var y = 0; y < levelLogic.length; y++) {
       var gameLevelRow = "";
-      for (var x = 0; x < level[y].length; x++) {
+      for (var x = 0; x < levelLogic[y].length; x++) {
         if (playerX === x && playerY === y) {
           gameLevelRow += player;
         } else if (keyX === x && keyY === y && !keyUsed) {
@@ -145,7 +191,7 @@ function GameLogic() {
             gameLevelRow += door;
           }
         } else {
-          gameLevelRow += level[y][x];
+          gameLevelRow += levelLogic[y][x];
         }
       }
       gameLevel += gameLevelRow + "<br>";
@@ -154,7 +200,7 @@ function GameLogic() {
   }
 
   function levelWall(x, y) {
-    return level[y][x] === "*";
+    return levelLogic[y][x] === "*";
   }
 
   document.addEventListener("keydown", (event) => {
