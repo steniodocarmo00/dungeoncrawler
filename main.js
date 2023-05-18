@@ -104,8 +104,11 @@ function GameLogic() {
   var doorX;
   var doorY;
   var spike;
-  var spikeX;
-  var spikeY;
+  var button
+  var buttonX
+  var buttonY
+  var button2X
+  var button2Y
   var level1;
   var level2
   var levelLogic
@@ -179,9 +182,13 @@ function GameLogic() {
   doorY = 3;
 
   spike = "#"
+
+  button = "O"
   
   doorOpen = false;
   keyUsed = false;  
+  buttonPressed = false;
+  button2Pressed = false;
   gameOver = false;
 
   document.addEventListener("keydown", (event) => {
@@ -203,7 +210,16 @@ function GameLogic() {
 
   if (gameOver) {
     document.getElementById("game-levelone").innerHTML = `<center>Game Over <br><br><br><br> aperte enter para tentar novamente</center>`;
-    return
+    keyX = 26;
+    keyY = 3;
+    buttonX = 26;
+    buttonY = 10;
+    button2X = 26;
+    button2Y = 26;
+    keyUsed = false;
+    buttonPressed = false;
+    button2Pressed = false;
+    return;
   }
 
   for (var y = 0; y < levelLogic.length; y++) {
@@ -220,12 +236,18 @@ function GameLogic() {
         if (doorOpen) { 
           if (levelIndex === 1) {
             gameLevelRow += "=";
-          } else if (levelIndex === 2) {
-            gameLevelRow += door;
+          } else if (levelIndex === 2 && keyUsed) {
+            gameLevelRow += "=";
           }
         } else {
           gameLevelRow += door;
         }
+      } else if (buttonX === x && buttonY === y) {
+        gameLevelRow += button
+      } else if (button2X === x && button2Y === y) {
+        gameLevelRow += button
+      } else if ((x === 8 && y >= 1 && y <= 5) && (buttonPressed && button2Pressed)) {
+        gameLevelRow += " ";
       } else {
         gameLevelRow += levelLogic[y][x];
       }
@@ -234,12 +256,28 @@ function GameLogic() {
   }
 
   if (levelIndex === 1 && playerX === doorX && playerY === doorY && doorOpen) {
+    
     levelLogic = level2;
     levelIndex = 2;
+
     playerX = 1;
     playerY = 1;
+
+    keyX = 26
+    keyY = 3
+
+    doorX = 0
+    doorY = 26
+
+    buttonX = 26
+    buttonY = 10
+    button2X = 26
+    button2Y = 26
+
     doorOpen = false;
     keyUsed = false;
+    buttonPressed = false;
+    button2Pressed = false;
     LevelMap();
     return;
   }
@@ -248,6 +286,9 @@ function GameLogic() {
 }
 
   function levelWall(x, y) {
+    if ((x === 8 && y >= 1 && y <= 5) && (buttonPressed && button2Pressed)) {
+      return false;
+    }
     return levelLogic[y][x] === "*";
   }
 
@@ -269,6 +310,14 @@ function GameLogic() {
         keyUsed = true;
         keyX = null;
         keyY = null;
+      } else if (buttonX === playerX && buttonY === playerY) {
+        buttonPressed = true
+        buttonX = null
+        buttonY = null
+      } else if (button2X === playerX && button2Y === playerY) {
+        button2Pressed = true
+        button2X = null
+        button2Y = null
       }
     }
 
