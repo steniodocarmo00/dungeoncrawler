@@ -106,6 +106,7 @@ function GameLogic() {
   var level1;
   var level2
   var levelLogic
+  var levelIndex
 
   level1 = [
     "**************",
@@ -159,6 +160,7 @@ function GameLogic() {
   ];
 
   levelLogic = level1
+  levelIndex = 1
 
   player = "&";
   playerX = 1;
@@ -185,8 +187,12 @@ function GameLogic() {
         } else if (keyX === x && keyY === y && !keyUsed) {
           gameLevelRow += key;
         } else if (doorX === x && doorY === y) {
-          if (doorOpen) {
-            gameLevelRow += "=";
+          if (doorOpen) { 
+            if (levelIndex === 1) {
+              gameLevelRow += "=";
+            } else if (levelIndex === 2) {
+              gameLevelRow += door
+            }
           } else {
             gameLevelRow += door;
           }
@@ -195,6 +201,17 @@ function GameLogic() {
         }
       }
       gameLevel += gameLevelRow + "<br>";
+    }
+
+    if (levelIndex === 1 && playerX === doorX && playerY === doorY && doorOpen) {
+      levelLogic = level2
+      levelIndex = 2
+      playerX = 1
+      playerY = 1
+      doorOpen = false
+      keyUsed = false 
+      LevelMap()
+      return
     }
     document.getElementById("game-levelone").innerHTML = gameLevel;
   }
