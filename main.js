@@ -103,10 +103,14 @@ function GameLogic() {
   var door;
   var doorX;
   var doorY;
+  var spike;
+  var spikeX;
+  var spikeY;
   var level1;
   var level2
   var levelLogic
   var levelIndex
+  var gameOver
 
   level1 = [
     "**************",
@@ -173,48 +177,75 @@ function GameLogic() {
   door = "D";
   doorX = 0;
   doorY = 3;
+
+  spike = "#"
   
   doorOpen = false;
   keyUsed = false;  
+  gameOver = false;
 
-  function LevelMap() {
-    var gameLevel = "";
-    for (var y = 0; y < levelLogic.length; y++) {
-      var gameLevelRow = "";
-      for (var x = 0; x < levelLogic[y].length; x++) {
-        if (playerX === x && playerY === y) {
-          gameLevelRow += player;
-        } else if (keyX === x && keyY === y && !keyUsed) {
-          gameLevelRow += key;
-        } else if (doorX === x && doorY === y) {
-          if (doorOpen) { 
-            if (levelIndex === 1) {
-              gameLevelRow += "=";
-            } else if (levelIndex === 2) {
-              gameLevelRow += door
-            }
-          } else {
-            gameLevelRow += door;
-          }
-        } else {
-          gameLevelRow += levelLogic[y][x];
-        }
+  document.addEventListener("keydown", (event) => {
+    if (gameOver && event.key === "Enter") {
+      gameOver = false 
+      if (levelIndex === 2){
+        levelLogic = level2
       }
-      gameLevel += gameLevelRow + "<br>";
-    }
-
-    if (levelIndex === 1 && playerX === doorX && playerY === doorY && doorOpen) {
-      levelLogic = level2
-      levelIndex = 2
       playerX = 1
       playerY = 1
       doorOpen = false
-      keyUsed = false 
+      keyUsed = false
       LevelMap()
-      return
     }
-    document.getElementById("game-levelone").innerHTML = gameLevel;
+  })
+
+  function LevelMap() {
+  var gameLevel = "";
+
+  if (gameOver) {
+    document.getElementById("game-levelone").innerHTML = `<center>Game Over <br><br><br><br> aperte enter para tentar novamente</center>`;
+    return
   }
+
+  for (var y = 0; y < levelLogic.length; y++) {
+    var gameLevelRow = "";
+    for (var x = 0; x < levelLogic[y].length; x++) {
+      if (playerX === x && playerY === y) {
+        gameLevelRow += player;
+        if (levelIndex === 2 && levelLogic[y][x] === spike) {
+          gameOver = true;
+        }
+      } else if (keyX === x && keyY === y && !keyUsed) {
+        gameLevelRow += key;
+      } else if (doorX === x && doorY === y) {
+        if (doorOpen) { 
+          if (levelIndex === 1) {
+            gameLevelRow += "=";
+          } else if (levelIndex === 2) {
+            gameLevelRow += door;
+          }
+        } else {
+          gameLevelRow += door;
+        }
+      } else {
+        gameLevelRow += levelLogic[y][x];
+      }
+    }
+    gameLevel += gameLevelRow + "<br>";
+  }
+
+  if (levelIndex === 1 && playerX === doorX && playerY === doorY && doorOpen) {
+    levelLogic = level2;
+    levelIndex = 2;
+    playerX = 1;
+    playerY = 1;
+    doorOpen = false;
+    keyUsed = false;
+    LevelMap();
+    return;
+  }
+
+  document.getElementById("game-levelone").innerHTML = gameLevel;
+}
 
   function levelWall(x, y) {
     return levelLogic[y][x] === "*";
