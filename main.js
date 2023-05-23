@@ -1,3 +1,6 @@
+var playerLifes;
+playerLifes = 3;
+
 function GameMenu() {
   var start;
   var menu;
@@ -192,7 +195,7 @@ function GameLogic() {
   gameOver = false;
 
   document.addEventListener("keydown", (event) => {
-    if (gameOver && event.key === "Enter") {
+    if (gameOver === true && event.key === "Enter") {
       gameOver = false 
       if (levelIndex === 2){
         levelLogic = level2
@@ -205,10 +208,11 @@ function GameLogic() {
     }
   })
 
+
   function LevelMap() {
   var gameLevel = "";
-
-  if (gameOver) {
+  
+  if (gameOver === true) {
     document.getElementById("game-levelone").innerHTML = `<center>Game Over <br><br><br><br> aperte enter para tentar novamente</center>`;
     keyX = 26;
     keyY = 3;
@@ -227,8 +231,43 @@ function GameLogic() {
     for (var x = 0; x < levelLogic[y].length; x++) {
       if (playerX === x && playerY === y) {
         gameLevelRow += player;
-        if (levelIndex === 2 && levelLogic[y][x] === spike) {
-          gameOver = true;
+        if (levelIndex === 2 && levelLogic[y][x] === spike && playerLifes === 3) {
+          playerX = 1;
+          playerY = 1;
+          buttonX = 26;
+          buttonY = 10;
+          button2X = 26;
+          button2Y = 26;
+          doorOpen = false;
+          keyUsed = false;
+          buttonPressed = false;
+          button2Pressed = false;
+          playerLifes = 2;
+          LevelMap()
+          console.log(playerLifes);
+          return;
+        }
+        else if (levelIndex === 2 && levelLogic[y][x] === spike && playerLifes === 2) {
+          playerX = 1
+          playerY = 1
+          buttonX = 26;
+          buttonY = 10;
+          button2X = 26;
+          button2Y = 26;
+          doorOpen = false
+          keyUsed = false
+          buttonPressed = false;
+          button2Pressed = false;
+          playerLifes = 1;
+          LevelMap()
+          console.log(playerLifes);
+          return;
+        }
+        if (levelIndex === 2 && levelLogic[y][x] === spike && playerLifes === 1) {
+          gameOver = true
+          playerLifes = 3;
+          LevelMap();
+          return;
         }
       } else if (keyX === x && keyY === y && !keyUsed) {
         gameLevelRow += key;
@@ -319,7 +358,18 @@ function GameLogic() {
         button2X = null
         button2Y = null
       }
+    //devmode(cheats) abaixo ;)
+    } else if (event.key === "v") {
+      buttonX = true;
+      buttonY = true;
+      button2X = true;
+      button2Y = true;
+      buttonPressed = true;
+      button2Pressed = true;
+      keyUsed = true;
+      doorOpen = true;
     }
+    //devmode(cheats) acima ;)
 
     if (
       !levelWall(newX, newY) &&
