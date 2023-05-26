@@ -81,32 +81,32 @@ function GameMenu() {
     const dialogo = document.getElementById("lore");
 
     const texto = [
-      "> ellis used to be just a normal worker at the &nterprise",
-      "> there, their main function was to code E-thereo",
-      "> though, the truth is, they never understood what E-thereo's purpose was",
-      "> ellis always assumed it was a game",
-      "> however ",
-      "> that couldn't be further from the truth ",
-      "> one day, while staying for longer in the office, they overheard two other employees talking",
-      "> 'did you hear about that employee #427?'",
-      "> 'the one who vanished? wasn't he involved in some kind of conspiracy'",
-      "> 'they call it a conspiracy, but what if it's actually the truth?'",
-      "> 'you really think so? that the code is-'",
-      "> 'SHHH! others might hear us!'",
-      "> given their strong sense of justice and lots of time to spare...",
-      "> ellis decided to find out what they were talking about",
-      "> so they had a plan:",
-      "> #1: break in employee #427's house and steal the keys to the &nterprise's garbage dump",
-      "> #2: infiltrate the main computer room through the dump",
-      "> #3: find out the true purpose of E-thereo",
-      "> so, when the day came, they left their home to put the plan in practice",
-      "> in the way, they thought they heard a faint voice saying:",
-      "> press y to begin",
+      "> Ellis used to be just a normal worker at the &nterprise.",
+      "> There, their main function was to code E-thereo.",
+      "> Though, the truth is, they never understood what E-thereo's purpose was.",
+      "> Ellis always assumed it was a game.",
+      "> However,",
+      "> That couldn't be further from the truth.",
+      "> One day, while staying for longer in the office, they overheard two other employees talking.",
+      "> 'Did you hear about that employee #427?'",
+      "> 'The one who vanished? Wasn't he involved in some kind of conspiracy?'",
+      "> 'They call it a conspiracy, but what if it's actually the truth?'",
+      "> 'You really think so? That the code is-'",
+      "> 'SHHH! Others might hear us!'",
+      "> Given their strong sense of justice and lots of time to spare...",
+      "> Ellis decided to find out what they were talking about.",
+      "> So they had a plan:",
+      "> #1: Break in employee #427's house and steal the keys to the &nterprise's garbage dump.",
+      "> #2: Infiltrate the main computer room through the dump.",
+      "> #3: Find out the true purpose of E-thereo.",
+      "> So, when the day came, they left their home to put the plan in practice.",
+      "> In the way, they thought they heard a faint voice saying:",
+      "> Press y to begin.",
     ];
 
     document.getElementById(
       "lore"
-    ).innerHTML = `<br>> this is the the story of ellis`;
+    ).innerHTML = `<br>> This is the the story of Ellis.`;
 
     var tamanho = texto.length;
     var i = 0;
@@ -152,7 +152,7 @@ function GameMenu() {
             ShowDialogue(callDialog());
 
             document.addEventListener("keydown", (event) => {
-              if (event.key === "y") {
+              if (event.key === "y" || event.key === "Y") {
                 ShowGame();
               }
             });
@@ -466,7 +466,7 @@ function GameLogic() {
 
       if (levelIndex === 2) {
         document.getElementById("game-levelone").innerHTML = `
-        <center>Game Over <br><br><br><br> aperte enter para tentar novamente</center>`;
+        <center>Game Over <br><br><br><br> Press Enter to try again.</center>`;
         document.getElementById("life-counter").innerHTML = `<center> 
         ---------------
         | lives:      |
@@ -485,7 +485,7 @@ function GameLogic() {
       } else if (levelIndex === 3) {
         document.getElementById(
           "game-levelone"
-        ).innerHTML = `<center>Game Over <br><br><br><br> aperte enter para tentar novamente</center>`;
+        ).innerHTML = `<center>Game Over <br><br><br><br> Press Enter to try again.</center>`;
         keyX = 19;
         keyY = 17;
         buttonX = 43;
@@ -499,7 +499,7 @@ function GameLogic() {
       } else if (levelIndex === 4) {
         document.getElementById(
           "game-levelone"
-        ).innerHTML = `<center>Game Over <br><br><br><br> aperte enter para tentar novamente</center>`;
+        ).innerHTML = `<center>Game Over <br><br><br><br> Press Enter to try again.</center>`;
         keyX = null;
         keyY = null;
         buttonX = 43;
@@ -607,7 +607,6 @@ function GameLogic() {
             doorOpen = false;
             keyUsed = false;
             buttonPressed = false;
-            button2Pressed = false;
             playerLifes = 2;
             LevelMap();
             console.log(playerLifes);
@@ -623,7 +622,6 @@ function GameLogic() {
             doorOpen = false;
             keyUsed = false;
             buttonPressed = false;
-            button2Pressed = false;
             playerLifes = 1;
             LevelMap();
             console.log(playerLifes);
@@ -789,10 +787,10 @@ function GameLogic() {
     function dialogue() {
       if (!button2Pressed) {
         // aqui fica o diálogo do início do boss
-        levelLogic[24] = "you don't need to do this, E-thereo is the future of humankind"; // placeholder
+        levelLogic[24] = "You don't need to do this, E-thereo is the future of humankind."; // placeholder
       } else if (button2Pressed) {
         // aqui fica o diálogo após o primeiro hit
-        levelLogic[24] = "there is no turning back now, any efforts are useless, E-thereo is anima mundi"; // placeholder
+        levelLogic[24] = "There is no turning back now, any efforts are useless, E-thereo is anima mundi."; // placeholder
       }
       LevelMap();
     }
@@ -848,7 +846,7 @@ function GameLogic() {
         function dialogue2() {
           if (!button2Pressed) {
             // aqui é o diálogo que segue a primeira fase
-            levelLogic[24] = "humankind will ascend to the digital world and be immortal, like #427"; // placeholder
+            levelLogic[24] = "Humankind will ascend to the digital world and be immortal, like #427."; // placeholder
             LevelMap();
           }
         }
@@ -874,32 +872,32 @@ function GameLogic() {
     function dialogue() {
       // aqui fica o diálogo do fim do boss
       levelLogic[24] =
-        "i understand your efforts. But its everything done, E-thereo is the new world to humankind, accept your fate.";
-      levelLogic[25] = "E-thereo is the project that will connect everyone in the digital world, making the human soul immortal" 
-      levelLogic[26] = "and for that, you must leave your body, i'll kill your weak body and make you a perfect soul in the digital world"
-      levelLogic[27] = "we are E-thereo, we are all connected. Welcome home, user E-llis"// placeholder
+        "I understand your efforts. But now everything is done, E-thereo is the new world to humankind, accept your fate.";
+      levelLogic[25] = "E-thereo is the project that will connect everyone in the digital world, making the human soul immortal." 
+      levelLogic[26] = "And for that, you must leave your body, I'll kill your weak body and make you a perfect soul in the digital world"
+      levelLogic[27] = "WE are E-thereo, WE are all connected. Welcome home, user E-llis."// placeholder
       LevelMap();
     }
     function gif1(){
-      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/Static2.gif ">`
+      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/Static2.gif"> <br> Congratulations! You've became E-thereo.">`
     }
     function gif2(){
-      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/Guest.gif ">`
+      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/Guest.gif"> <br> Congratulations! You've became E-thereo.`
     }
     function gif3(){
-      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/User.gif ">`
+      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/User.gif"> <br> Congratulations! You've became E-thereo.`
     }
     function gif4(){
-      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/eyeLain.gif ">`
+      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/eyeLain.gif"> <br> Congratulations! You've became E-thereo.`
     }
     function gif5(){
-      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/ghost3.gif ">`
+      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/ghost3.gif"> <br> Congratulations! You've became E-thereo.`
     }
     function gif6(){
-      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/handsL1.gif ">`
+      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/handsL1.gif"> <br> Congratulations! You've became E-thereo.`
     }
     function gif7(){
-      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/LAINHADN3.gif   ">`
+      document.getElementById("game-levelone").innerHTML = `<img src="http://cs.gettysburg.edu/~duncjo01/archive/patterns/lain/LAINHADN3.gif"> <br> Congratulations! You've became E-thereo.`
     }
     function reload(){
       location.reload()
