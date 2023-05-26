@@ -82,7 +82,6 @@ function GameMenu() {
     const dialogo = document.getElementById("lore");
   
       const texto = [
-          "> this is the the story of ellis ",
           "> ellis used to be just a normal worker at the &nterprise",
           "> there, their main function was to code E-thereo",
           "> though, the truth is, they never understood what E-thereo's purpose was",
@@ -95,18 +94,17 @@ function GameMenu() {
           "> 'they call it a conspiracy, but what if it's actually the truth?'",
           "> 'you really think so? that the code is-'",
           "> 'SHHH! others might hear us!'",
-
           "> given their strong sense of justice and lots of time to spare...",
           "> ellis decided to find out what they were talking about",
           "> so they had a plan:",
           "> #1: break in employee #427's house and steal the keys to the &nterprise's garbage dump",
           "> #2: infiltrate the main computer room through the dump",
           "> #3: find out the true purpose of E-thereo",
-           "> so, when the day came, they left their home to put the plan in practice",
+          "> so, when the day came, they left their home to put the plan in practice",
           "> in the way, they thought they heard a faint voice saying:",
           "> press y to begin"]
   
-      document.getElementById("lore").innerHTML = `<br>> Alright, I've been thinking.`;
+      document.getElementById("lore").innerHTML = `<br>> this is the the story of ellis`;
       
       var tamanho = texto.length
       var i = 0
@@ -188,14 +186,28 @@ function GameLogic() {
   var newSpike;
   var spikeArray;
   var spikeMoving;
+  var spikeSpeed;
   var spikeInterval;
-  var dialogueTimer;
+  var spikeNumber;
   var attackTimer;
+  var dialogueTimer;
   var button;
   var buttonX;
   var buttonY;
   var button2X;
   var button2Y;
+  var bossSymbol1;
+  var bossSymbol1X;
+  var bossSymbol1Y;
+  var bossSymbol2;
+  var bossSymbol2X;
+  var bossSymbol2Y;
+  var bossSymbol3;
+  var bossSymbol3X;
+  var bossSymbol3Y;
+  var bossSymbol4;
+  var bossSymbol4X;
+  var bossSymbol4Y;
   var level1;
   var level2;
   var level3;
@@ -322,7 +334,7 @@ function GameLogic() {
     "*****************************************************************************************",
     "*                                      *          *                                     *",
     "*                                      *          *                                     *",
-    "*                                      *   \\__/   *                                     *",
+    "*                                      *          *                                     *",
     "*                                      *          *                                     *",
     "*                                      ************                                     *",
     "*                                        *      *                                       *",
@@ -376,6 +388,11 @@ function GameLogic() {
   teleport2X = null
   teleport2Y = null
 
+  bossSymbol1 = "\\"
+  bossSymbol2 = "_"
+  bossSymbol3 = "_"
+  bossSymbol4 = "/"
+
   
   doorOpen = false;
   keyUsed = false;  
@@ -404,6 +421,14 @@ function GameLogic() {
       keyUsed = false;
       LevelMap();
       if (levelIndex === 4) {
+        bossSymbol1X = 43;
+        bossSymbol1Y = 3;
+        bossSymbol2X = 44;
+        bossSymbol2Y = 3;
+        bossSymbol3X = 45;
+        bossSymbol3Y = 3;
+        bossSymbol4X = 46;
+        bossSymbol4Y = 3;
         Ethereo();
       }
     }
@@ -411,7 +436,7 @@ function GameLogic() {
 
 
 
-  function LevelMap() {  if (playerLifes===3 && levelLogic==level2 ||playerLifes===3 && levelLogic==level3 ||playerLifes===3 && levelIndex==level1 ) {
+  function LevelMap() {  if (playerLifes===3 && levelLogic!==level1) {
     document.getElementById("life-counter").innerHTML = ` <center>
     ---------------
     | lives:      |
@@ -419,7 +444,7 @@ function GameLogic() {
     ---------------
     </center>`
 
-  }else if (playerLifes===2 &&level2||playerLifes===3 && levelLogic==level3) {
+  }else if (playerLifes===2 && levelLogic!==level1) {
     document.getElementById("life-counter").innerHTML = ` <center>
     ---------------
     | lives:      |
@@ -427,18 +452,11 @@ function GameLogic() {
     ---------------
     </center>`
     
-  }else if (playerLifes===1||playerLifes===3 && levelLogic==level3) {
+  }else if (playerLifes===1 && levelLogic!==level1) {
     document.getElementById("life-counter").innerHTML = ` <center>
     ---------------
     | lives:      |
     |   ♥  ♡  ♡   |
-    ---------------</center>`
-    
-  }else if (playerLifes===0||playerLifes===3 && levelLogic==level3) {
-    document.getElementById("life-counter").innerHTML = ` <center>
-    ---------------
-    | lives:      |
-    |  ♡  ♡  ♡    |
     ---------------</center>`
     
   }
@@ -489,6 +507,8 @@ function GameLogic() {
         buttonY = 2;
         button2X = 46;
         button2Y = 2;
+        teleportX = null;
+        teleportY = null;
         keyUsed = false;
         buttonPressed = false;
         button2Pressed = false;
@@ -568,10 +588,6 @@ function GameLogic() {
         else if (levelIndex === 4 && spikeX.indexOf(x) !== -1 && spikeY[spikeX.indexOf(x)] === y && playerLifes === 3) {
           playerX = 45;
           playerY = 12;
-          buttonX = 43;
-          buttonY = 2;
-          button2X = 46;
-          button2Y = 2;
           doorOpen = false;
           keyUsed = false;
           buttonPressed = false;
@@ -584,10 +600,6 @@ function GameLogic() {
         else if (levelIndex === 4 && spikeX.indexOf(x) !== -1 && spikeY[spikeX.indexOf(x)] === y && playerLifes === 2) {
           playerX = 45;
           playerY = 12;
-          buttonX = 43;
-          buttonY = 2;
-          button2X = 46;
-          button2Y = 2;
           doorOpen = false;
           keyUsed = false;
           buttonPressed = false;
@@ -621,17 +633,25 @@ function GameLogic() {
           gameLevelRow += door;
         }
       } else if (buttonX === x && buttonY === y) {
-        gameLevelRow += button
+        gameLevelRow += button;
       } else if (button2X === x && button2Y === y) {
-        gameLevelRow += button
+        gameLevelRow += button;
       } else if (teleportX === x && teleportY === y) {
-        gameLevelRow += teleport
+        gameLevelRow += teleport;
       } else if (teleport2X === x && teleport2Y === y) {
-        gameLevelRow += teleport
+        gameLevelRow += teleport;
+      } else if (bossSymbol1X === x && bossSymbol1Y === y) {
+        gameLevelRow += bossSymbol1;
+      } else if (bossSymbol2X === x && bossSymbol2Y === y) {
+        gameLevelRow += bossSymbol2;
+      } else if (bossSymbol3X === x && bossSymbol3Y === y) {
+        gameLevelRow += bossSymbol3;
+      } else if (bossSymbol4X === x && bossSymbol4Y === y) {
+        gameLevelRow += bossSymbol4;
       } else if ((x === 8 && y >= 1 && y <= 5) && (buttonPressed && button2Pressed)) {
         gameLevelRow += " ";
       } else if (spikeX.indexOf(x) !== -1 && spikeY[spikeX.indexOf(x)] === y) {
-        gameLevelRow += spike
+        gameLevelRow += spike;
       } else {
         gameLevelRow += levelLogic[y][x];
       }
@@ -716,9 +736,22 @@ function GameLogic() {
     spikeX = []
     spikeY = []
     spikeArray = []
+    if (!button2Pressed) {
+      spikeNumber = 1;
+      spikeSpeed = 500;
+    } else {
+      spikeNumber = 3;
+      spikeSpeed = 350;
+    }
 
     function dialogue() {
-        levelLogic[24] = "seu merda"
+        if (!button2Pressed) {
+          // aqui fica o diálogo do início do boss
+          levelLogic[24] = "ha ha olá mundo começou o boss"; // placeholder
+        } else if (button2Pressed) {
+          // aqui fica o diálogo após o primeiro hit
+          levelLogic[24] = "ai ai levei dano"; // placeholder
+        }
         LevelMap()
     }
 
@@ -730,43 +763,52 @@ function GameLogic() {
         spikeY[i] = spikeArray[i].y;
         
         if (spikeArray[i].y === 22) {
-            spikeArray[i].x = null
+            spikeArray[i].x = null;
         }
 
-        LevelMap()
+        LevelMap();
       }
     }
 
     function addSpike() {
-      newSpike = {
-        x: Math.floor(Math.random()*88)+1,
-        y: 1
-      }
-      if (newSpike.x > 38 && newSpike.x < 51) {
+      for (var i = 0; i < spikeNumber; i++) {
+        newSpike = {
+          x: Math.floor(Math.random()*87)+1,
+          y: 1
+        }
+        if (newSpike.x === 39 || newSpike.x === 50) {
           newSpike.y = 6;
+        } else if (newSpike.x === 40 || newSpike.x === 49) {
+          newSpike.y = 8;
+        } else if (newSpike.x > 40 && newSpike.x < 49) {
+          newSpike.y = 10;
+        }
+        
+        spikeX.push(newSpike.x);
+        spikeY.push(newSpike.y);
+        spikeArray.push(newSpike);
       }
-      
-      spikeX.push(newSpike.x);
-      spikeY.push(newSpike.y);
-      spikeArray.push(newSpike)
     }
     
-    setTimeout(dialogue, 1500)
+    setTimeout(dialogue, 1500);
     dialogueTimer = setTimeout(function() {
-      spikeMoving = setInterval(moveSpike, 500)
-      spikeInterval = setInterval(addSpike, 750)
+      spikeMoving = setInterval(moveSpike, spikeSpeed);
+      spikeInterval = setInterval(addSpike, 750);
       attackTimer = setTimeout(function() {
         clearInterval(spikeMoving);
         clearInterval(spikeInterval);
-        spikeX = []
-        spikeY = []
-        spikeArray = []
+        spikeX = [];
+        spikeY = [];
+        spikeArray = [];
         teleportX = 45;
         teleportY = 12;
 
         function dialogue2() {
-          levelLogic[24] = "mais diálogo"
-          LevelMap()
+          if (!button2Pressed) {
+            // aqui é o diálogo que segue a primeira fase
+            levelLogic[24] = "kk teleporter inútil"; // placeholder
+            LevelMap();
+          }
         }
 
         function vulnerable() {
@@ -774,15 +816,26 @@ function GameLogic() {
           buttonY = null;
           teleport2X = 43;
           teleport2Y = 2;
+          LevelMap();
         }
 
         LevelMap()
 
         setTimeout(dialogue2, 1500)
-        setTimeout(vulnerable, 3000 /*placeholder*/)
+        setTimeout(vulnerable, 3000 /*número placeholder*/) // talvez seja preciso mudar se o diálogo for passado com enter
       }, 15000);
-    }, 3000 /*placeholder*/)
+    }, 3000 /*número placeholder*/) // talvez seja preciso mudar se o diálogo for passado com enter
     return;
+  }
+
+  function EthereoEnd() {
+    function dialogue() {
+      // aqui fica o diálogo do fim do boss
+      levelLogic[24] = "céus eu fui completamente derrotado parabéns vc é E-llis agora"; // placeholder
+      LevelMap();
+    }
+
+    setTimeout(dialogue, 1500);
   }
 
   document.addEventListener("keydown", (event) => {
@@ -804,17 +857,17 @@ function GameLogic() {
         keyX = null;
         keyY = null;
       } else if (levelIndex === 2 && buttonX === playerX && buttonY === playerY) {
-        buttonPressed = true
-        buttonX = null
-        buttonY = null
+        buttonPressed = true;
+        buttonX = null;
+        buttonY = null;
       } else if (levelIndex === 2 && button2X === playerX && button2Y === playerY) {
-        button2Pressed = true
-        button2X = null
-        button2Y = null
+        button2Pressed = true;
+        button2X = null;
+        button2Y = null;
       } else if (
         levelIndex === 3 && (
           (buttonX === playerX && buttonY === playerY) ||
-          (levelIndex === 3 && button2X === playerX && button2Y === playerY)
+          (button2X === playerX && button2Y === playerY)
         )
       ) {
         levelLogic = level4;
@@ -839,13 +892,53 @@ function GameLogic() {
         teleport2X = null;
         teleport2Y = null;
 
+        bossSymbol1X = 43;
+        bossSymbol1Y = 3;
+        bossSymbol2X = 44;
+        bossSymbol2Y = 3;
+        bossSymbol3X = 45;
+        bossSymbol3Y = 3;
+        bossSymbol4X = 46;
+        bossSymbol4Y = 3;
+
         doorOpen = false;
         keyUsed = false;
         buttonPressed = false;
         button2Pressed = false;
         LevelMap();
-        Ethereo()
+        Ethereo();
         return;
+      } else if (levelIndex === 4 && button2X === playerX && button2Y === playerY) {
+        button2Pressed = true;
+        buttonX = 43;
+        buttonY = 2;
+        button2X = null;
+        button2Y = null;
+        teleport2X = null;
+        teleport2Y = null;
+
+        newY = 12;
+
+        bossSymbol1X = 43;
+        bossSymbol1Y = 1;
+        bossSymbol4X = 46;
+        bossSymbol4Y = 1;
+        LevelMap();
+        Ethereo();
+      } else if (levelIndex === 4 && buttonX === playerX && buttonY === playerY) {
+        buttonX = null;
+        buttonY = null;
+        
+        bossSymbol1X = null;
+        bossSymbol1Y = null;
+        bossSymbol2X = null;
+        bossSymbol2Y = null;
+        bossSymbol3X = null;
+        bossSymbol3Y = null;
+        bossSymbol4X = null;
+        bossSymbol4Y = null;
+        LevelMap();
+        EthereoEnd();
       }
     //devmode(cheats) abaixo ;)
     } else if (event.key === "v") {
@@ -939,6 +1032,14 @@ function GameLogic() {
       teleportY = null;
       teleport2X = null;
       teleport2Y = null;
+      bossSymbol1X = 43;
+      bossSymbol1Y = 3;
+      bossSymbol2X = 44;
+      bossSymbol2Y = 3;
+      bossSymbol3X = 45;
+      bossSymbol3Y = 3;
+      bossSymbol4X = 46;
+      bossSymbol4Y = 3;
       doorOpen = false;
       keyUsed = false;  
       buttonPressed = false;
@@ -958,6 +1059,12 @@ function GameLogic() {
     if (teleportX === newX && teleportY === newY && teleport2X !== null && teleport2X !== null) {
       playerX = teleport2X
       playerY = teleport2Y
+      if (levelIndex === 4 && button2Pressed) {
+        buttonX = 43;
+        buttonY = 2;
+        teleport2X = null;
+        teleport2Y = null;
+      }
     }
     if (teleport2X === newX && teleport2Y === newY && teleportX !== null && teleportX !== null) {
       playerX = teleportX
